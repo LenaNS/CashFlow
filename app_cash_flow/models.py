@@ -10,7 +10,7 @@ class Status(models.Model):
     Поля
     ----
     name:
-        Название статуса.".
+        Название статуса.
     """
     name = models.CharField(verbose_name="Название статуса", max_length=50, unique=True)
 

@@ -3,7 +3,6 @@ from django.contrib.admin import ModelAdmin, register, DateFieldListFilter
 from .models import *
 
 
-
 @register(CashFlow)
 class CashFlowAdmin(ModelAdmin):
     """
@@ -15,8 +14,6 @@ class CashFlowAdmin(ModelAdmin):
         Список отображаемых полей.
     list_filter:
         Список полей, по которым доступны фильтры.
-    search_fields:
-        Список полей по которым выполняется поиск.
     """
 
     list_display = (
@@ -30,16 +27,24 @@ class CashFlowAdmin(ModelAdmin):
     )
 
     list_filter = (
-        ('created_at', DateFieldListFilter),          # Фильтрация по дате создания
-        'status',              # Фильтрация по статусу
-        'transaction_type',    # Фильтрация по типу транзакции
-        'category',            # Фильтрация по категории
-        'subcategory',         # Фильтрация по подкатегории
+        'created_at',
+        'status',
+        'transaction_type',
+        'category',
+        'subcategory',
     )
 
 
 @register(Status)
 class StatusAdmin(ModelAdmin):
+    """
+    Панель администрирования Статусов.
+
+    Поля
+    ----
+    list_display:
+        Список отображаемых полей.
+    """
     list_display = (
         "name",
     )
@@ -47,6 +52,16 @@ class StatusAdmin(ModelAdmin):
 
 @register(TransactionType)
 class TransactionTypeAdmin(ModelAdmin):
+    """
+    Панель администрирования Типов.
+
+    Поля
+    ----
+    list_display:
+        Список отображаемых полей.
+    filter_horizontal:
+        Интерфейс для выбора категорий (Many-to-Many).
+    """
     list_display = (
         "name",
     )
@@ -55,6 +70,18 @@ class TransactionTypeAdmin(ModelAdmin):
 
 @register(Category)
 class CategoryAdmin(ModelAdmin):
+    """
+    Панель администрирования Категорий.
+
+    Поля
+    ----
+    list_display:
+        Список отображаемых полей.
+    search_fields:
+        Указывает, по каким полям можно выполнять поиск.
+    filter_horizontal:
+        Интерфейс для выбора категорий (Many-to-Many).
+    """
     list_display = (
         "name",
     )
@@ -63,8 +90,19 @@ class CategoryAdmin(ModelAdmin):
     )
     filter_horizontal = ['subcategories']
 
+
 @register(Subcategory)
 class SubcategoryAdmin(ModelAdmin):
+    """
+    Панель администрирования Покатегорий.
+
+    Поля
+    ----
+    list_display:
+        Список отображаемых полей.
+    search_fields:
+        Указывает, по каким полям можно выполнять поиск.
+    """
     list_display = (
         "name",
     )
